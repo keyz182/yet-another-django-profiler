@@ -69,7 +69,10 @@ def which(program):
     are in place before attempting to call them."""
 
     def is_exe(file_path):
-        return os.path.isfile(file_path) and os.access(file_path, os.X_OK)
+        non_win = os.path.isfile(file_path) and os.access(file_path, os.X_OK)
+        win_path = file_path + '.exe'
+        win = os.path.isfile(win_path) and os.access(win_path, os.X_OK)
+        return non_win or win
 
     program_path, _name = os.path.split(program)
     if program_path:
